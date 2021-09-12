@@ -18,7 +18,7 @@ nodemon
 
 1. Start your terminal and copy this project
 ```
-git clone https://github.com/huntershih/restaurant-list.git
+git clone https://github.com/Huntershih/restaurant-list.git
 ```
 
 2. access the project dir
