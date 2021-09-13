@@ -11,19 +11,21 @@ app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
 
 app.get('/shop/:id', (req, res) => {
-  const shop = shops.results.filter(shop => shop.id === Number(req.params.id))
-  res.render('show', { shopList: shop[0] })
+  const shop = shops.results.find(shop => shop.id === Number(req.params.id))
+  res.render('show', { shopList: shop })
 })
 
 app.get('/', (req, res) => {
   res.render('index', { shopList: shops.results })
 })
 
-app.get('/search', (req, res) => {
+app.get('/restaurant/search', (req, res) => {
+  const keywords = req.query.keywords
+  const keywordsToLowerCase = keywords.toLowerCase()
   const search = shops.results.filter((shop) => {
-    return shop.name.toLowerCase().includes(req.query.keywords.toLowerCase()) || shop.category.toLowerCase().includes(req.query.keywords.toLowerCase())
+    return shop.name.toLowerCase().includes(keywordsToLowerCase) || shop.category.toLowerCase().includes(keywordsToLowerCase)
   })
-  res.render('index', { shopList: search, record: req.query.keywords })
+  res.render('index', { shopList: search, record: keywords })
 })
 
 
