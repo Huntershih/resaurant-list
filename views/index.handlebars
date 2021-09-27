@@ -20,7 +20,7 @@
 
 <div class="container mt-5">
   {{#if restaurantList}}
-  <div class="row">
+  <div class="d-flex row">
     <div class="col-md-10 col-12 mx-auto">
       <div class="card-columns">
         {{#each restaurantList}}
@@ -40,6 +40,12 @@
             </div>
           </div>
         </a>
+        <div class="justify-content-end my-2">
+          <a href="/restaurant/{{ this.id }}/edit" class="border-bottom mx-2">Edit</a>
+          <a href="/restaurant/{{ this.id }}/details" class="border-bottom mx-2">Details</a>
+          <a href="/restaurant/{{ this.id }}/delete" class="border border-dark">Delete</a>
+        </div>
+
         {{/each}}
       </div>
     </div>
