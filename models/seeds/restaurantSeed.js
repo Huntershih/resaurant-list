@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const restaurant = require('./models/restaurant')
+const restaurant = require('../restaurant')
 
 mongoose.connect('mongodb://localhost/restaurant-list')
 

@@ -3,7 +3,7 @@
 <div class="container search-bar">
   <div class="search-bar-outer">
     <div class="search-bar-inner">
-      <form action="/restaurant/search">
+      <form action="/search">
         <h4 class="mb-2">尋找餐廳：</h4>
         <div class="input-group">
           <input type="text" name="keywords" class="form-control" placeholder="輸入餐廳、分類" aria-label="Restaurant Name..."
@@ -24,7 +24,7 @@
     <div class="col-md-10 col-12 mx-auto">
       <div class="card-columns">
         {{#each restaurantList}}
-        <a href="/restaurant/{{ this.id }}" class="text-secondary">
+        <a href="/restaurant/{{ this._id }}" class="text-secondary">
           <div class="card mb-3">
             <img class="card-img-top" src="{{ this.image }}" alt="{{ this.name }}">
             <div class="card-body p-3">
@@ -36,15 +36,18 @@
               <span class="badge badge-pill badge-danger font-weight-normal">
                 {{ this.rating }}
                 <i class="fas fa-star fa-xs"></i>
+                <div class="d-flex justify-content-end">
+                  <a href="/restaurant/{{ this._id }}/edit" class="mx-2"><i class="fas fa-edit"></i></a>
+                  <a href="/restaurant/{{ this._id }}/details" class="mx-2"><i class="fas fa-info"></i></a>
+                  <a href="/restaurant/{{ this._id }}/delete" class="mx-2"><i class="fas fa-trash-alt"></i></a>
+                </div>
+
               </span>
             </div>
           </div>
+
         </a>
-        <div class="justify-content-end my-2">
-          <a href="/restaurant/{{ this.id }}/edit" class="border-bottom mx-2">Edit</a>
-          <a href="/restaurant/{{ this.id }}/details" class="border-bottom mx-2">Details</a>
-          <a href="/restaurant/{{ this.id }}/delete" class="border border-dark">Delete</a>
-        </div>
+
 
         {{/each}}
       </div>

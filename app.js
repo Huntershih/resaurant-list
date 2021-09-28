@@ -3,7 +3,7 @@ const exphbs = require('express-handlebars')
 const mongoose = require('mongoose')
 const app = express()
 const port = 3000
-const restaurants = require('./restaurant.json')
+const Restaurants = require('./models/restaurant')
 
 mongoose.connect('mongodb://localhost/restaurant-list')
 
@@ -19,26 +19,45 @@ db.once('open', () => {
 })
 
 app.use(express.static('public'))
+app.use(express.urlencoded({ extended: true }))
 
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
 
-app.get('/restaurant/:id', (req, res) => {
-  const restaurant = restaurants.results.find(restaurant => restaurant.id === Number(req.params.id))
-  res.render('show', { restaurantList: restaurant })
-})
-
 app.get('/', (req, res) => {
-  res.render('index', { restaurantList: restaurants.results })
+  Restaurants.find()
+    .lean()
+    .then(restaurantList => res.render('index', { restaurantList }))
+    .catch(error => console.log(error))
 })
 
-app.get('/restaurant/search', (req, res) => {
+app.get('/restaurant/:id', (req, res) => {
+  const id = req.params.id
+
+  return Restaurants.findById(id)
+    .lean()
+    .then(restaurantList => res.render('show', { restaurantList }))
+    .catch(error => console.log(error))
+
+})
+
+
+app.get('/search', (req, res) => {
   const keywords = req.query.keywords
-  const keywordsToLowerCase = keywords.toLowerCase()
-  const search = restaurants.results.filter((restaurant) => {
-    return restaurant.name.toLowerCase().includes(keywordsToLowerCase) || restaurant.category.toLowerCase().includes(keywordsToLowerCase)
-  })
-  res.render('index', { restaurantList: search, record: keywords })
+  // const keywordsToLowerCase = keywords.toLowerCase()
+
+  console.log(keywords)
+  return Restaurants.find({ name: { $regex: keywords } })
+    .lean()
+    .then(restaurantList => res.render('index', { restaurantList, record: keywords }))
+    .catch(error => console.log(error))
+
+
+
+  // const search = restaurants.results.filter((restaurant) => {
+  //   return restaurant.name.toLowerCase().includes(keywordsToLowerCase) || restaurant.category.toLowerCase().includes(keywordsToLowerCase)
+  // })
+  // res.render('index', { restaurantList: search, record: keywords })
 })
 
 

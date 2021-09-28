@@ -3,7 +3,7 @@ const Schema = mongoose.Schema
 
 const restaurantSchema = new Schema({
   id: {
-    type: "Number",
+    type: "string",
     required: true
   }, name: {
     type: 'string',
@@ -35,4 +35,4 @@ const restaurantSchema = new Schema({
   }
 })
 
-module.exports = mongoose.exports('restaurants', restaurantSchema)
+module.exports = mongoose.model('restaurants', restaurantSchema)
