@@ -1,0 +1,46 @@
+<div class="container my-5 restaurant-new-form">
+  <h2>新增餐廳資料</h2>
+  <form action="/restaurants" method="POST">
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input type="Name" name="name" class="form-control" id="name">
+    </div>
+    <div class="form-group">
+      <label for="name_en">English Name</label>
+      <input type="Name" name="name_en" class="form-control" id="name_en">
+    </div>
+    <div class="form-group">
+      <label for="category">Catagory</label>
+      <input type="string" name="category" class="form-control" id="category">
+    </div>
+    <div class="form-group">
+      <label for="image">Image</label>
+      <input type="url" name="image" class="form-control" id="image">
+    </div>
+    <div class="form-group">
+      <label for="exampleInputLocation">location</label>
+      <input type="string" name="location" class="form-control" id="location">
+    </div>
+    <div class="form-group">
+      <label for="phone">Telephone</label>
+      <input type="tel" name="phone" class="form-control" id="phone">
+    </div>
+    <div class="form-group">
+      <label for="google_map">Google Map</label>
+      <input type="url" name="google_map" class="form-control" id="google_map">
+    </div>
+    <div class="form-group">
+      <label for="rating">Rating</label>
+      <input type="number" name="rating" step="0.1" min="0" max="5" class="form-control" id="rating">
+    </div>
+    <div class="form-group">
+      <label for="description">Description</label>
+      <input type="textarea" name="description" class="form-control" id="description">
+    </div>
+    <div class="d-flex justify-content-center">
+      <button type="submit" class="btn btn-primary mx-2">新增</button>
+      <a href="#" class="btn btn-primary" role="button" aria-pressed="true">返回首頁</a>
+      {{!-- <button class="btn btn-primary"><a href="./">返回首頁</a></button> --}}
+    </div>
+  </form>
+</div>

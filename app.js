@@ -1,6 +1,7 @@
 const express = require('express')
 const exphbs = require('express-handlebars')
 const mongoose = require('mongoose')
+const restaurant = require('./models/restaurant')
 const app = express()
 const port = 3000
 const Restaurants = require('./models/restaurant')
@@ -31,34 +32,64 @@ app.get('/', (req, res) => {
     .catch(error => console.log(error))
 })
 
-app.get('/restaurant/:id', (req, res) => {
-  const id = req.params.id
+app.get('/restaurants/new', (req, res) => {
 
-  return Restaurants.findById(id)
-    .lean()
-    .then(restaurantList => res.render('show', { restaurantList }))
-    .catch(error => console.log(error))
-
+  res.render('new')
 })
 
 
-app.get('/search', (req, res) => {
+app.get('/restaurants/search', (req, res) => {
   const keywords = req.query.keywords
-  // const keywordsToLowerCase = keywords.toLowerCase()
 
   console.log(keywords)
   return Restaurants.find({ name: { $regex: keywords } })
     .lean()
     .then(restaurantList => res.render('index', { restaurantList, record: keywords }))
     .catch(error => console.log(error))
-
-
-
-  // const search = restaurants.results.filter((restaurant) => {
-  //   return restaurant.name.toLowerCase().includes(keywordsToLowerCase) || restaurant.category.toLowerCase().includes(keywordsToLowerCase)
-  // })
-  // res.render('index', { restaurantList: search, record: keywords })
 })
+
+app.get('/restaurants/:id', (req, res) => {
+  const id = req.params.id
+
+  return Restaurants.findById(id)
+    .lean()
+    .then(restaurantList => res.render('show', { restaurantList }))
+    .catch(error => console.log(error))
+})
+
+app.get('/restaurants/:id/edit', (req, res) => {
+  const id = req.params.id
+
+  return Restaurants.findById(id)
+    .lean()
+    .then(restaurantList => res.render('edit', { restaurantList }))
+    .catch(error => console.log(error))
+})
+
+app.post('/restaurants/:id', (req, res) => {
+  const id = req.params.id
+  const data = req.body
+
+  return Restaurants.findById(id)
+    .then((restaurant) => {
+      for (const [key, value] of Object.entries(req.body)) {
+        restaurant[key] = value
+      }
+      return restaurant.save()
+    })
+    .then(() => res.redirect(`/restaurants/${id}`))
+    .catch(error => console.log(error))
+})
+
+app.post('/restaurants', (req, res) => {
+
+  const data = req.body
+
+  Restaurants.create(data)
+    .then(() => res.redirect('/'))
+    .catch(error => console.log(error))
+})
+
 
 
 app.listen(port, () => {
