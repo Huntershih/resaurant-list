@@ -7,15 +7,16 @@ This project is created by Node.js and Express.js. You could collect your favori
 * Checking restaurants info by clicking cards.
 * Searching restaurants by typing text at input field. Simply typing keywords of name and category.
 * There will be a reminder if the keyword is not included in the database.
+* Create/ Read/ Update/ Delete restaurants
 
 
 ## Environment SetUp
 
-Node.js
-nodemon
-Express-handlebars
-MongoDB
-Mongoose
+* Node.js
+* nodemon
+* Express-handlebars
+* MongoDB
+* Mongoose
 
 ## Installing
 
