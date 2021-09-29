@@ -42,7 +42,7 @@ app.get('/restaurants/search', (req, res) => {
   const keywords = req.query.keywords
 
   console.log(keywords)
-  return Restaurants.find({ name: { $regex: keywords } })
+  return Restaurants.find({ $or: [{ name: { $regex: keywords } }, { category: { $regex: keywords } }] })
     .lean()
     .then(restaurantList => res.render('index', { restaurantList, record: keywords }))
     .catch(error => console.log(error))
@@ -71,15 +71,17 @@ app.post('/restaurants/:id', (req, res) => {
   const data = req.body
 
   return Restaurants.findById(id)
-    .then((restaurant) => {
-      for (const [key, value] of Object.entries(req.body)) {
-        restaurant[key] = value
+    .then((restaurantList) => {
+      for (const [key, value] of Object.entries(data)) {
+        restaurantList[key] = value
       }
-      return restaurant.save()
+      return restaurantList.save()
     })
     .then(() => res.redirect(`/restaurants/${id}`))
     .catch(error => console.log(error))
 })
+
+
 
 app.post('/restaurants', (req, res) => {
 
@@ -90,6 +92,16 @@ app.post('/restaurants', (req, res) => {
     .catch(error => console.log(error))
 })
 
+app.post('/restaurants/:id/delete', (req, res) => {
+
+  const id = req.params.id
+
+  return Restaurants.findById(id)
+    .then(restaurantList => restaurantList.remove())
+    .then(() => res.redirect('/'))
+    .catch(error => console.log(error))
+
+})
 
 
 app.listen(port, () => {
