@@ -13,6 +13,9 @@ This project is created by Node.js and Express.js. You could collect your favori
 
 Node.js
 nodemon
+Express-handlebars
+MongoDB
+Mongoose
 
 ## Installing
 
@@ -27,7 +30,13 @@ cd restaurant-list
 npm install -g nodemon
 ```
 
-3. Run this project
+3. Initialize seeder
+
+```
+npm run seed
+```
+
+4. Run this project
 ```
 npm run dev
 ```
