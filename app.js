@@ -25,6 +25,7 @@ app.use(express.urlencoded({ extended: true }))
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
 
+// 讀取所有資料庫並渲染資料
 app.get('/', (req, res) => {
   Restaurants.find()
     .lean()
@@ -32,12 +33,12 @@ app.get('/', (req, res) => {
     .catch(error => console.log(error))
 })
 
+//新增資料頁面
 app.get('/restaurants/new', (req, res) => {
-
   res.render('new')
 })
 
-
+//取得搜尋頁面
 app.get('/restaurants/search', (req, res) => {
   const keywords = req.query.keywords
 
@@ -48,6 +49,7 @@ app.get('/restaurants/search', (req, res) => {
     .catch(error => console.log(error))
 })
 
+//取得指定資料頁面
 app.get('/restaurants/:id', (req, res) => {
   const id = req.params.id
 
@@ -57,6 +59,7 @@ app.get('/restaurants/:id', (req, res) => {
     .catch(error => console.log(error))
 })
 
+//取得編輯頁面
 app.get('/restaurants/:id/edit', (req, res) => {
   const id = req.params.id
 
@@ -66,6 +69,7 @@ app.get('/restaurants/:id/edit', (req, res) => {
     .catch(error => console.log(error))
 })
 
+//更新編輯資料
 app.post('/restaurants/:id', (req, res) => {
   const id = req.params.id
   const data = req.body
@@ -81,8 +85,7 @@ app.post('/restaurants/:id', (req, res) => {
     .catch(error => console.log(error))
 })
 
-
-
+//新增一筆資料
 app.post('/restaurants', (req, res) => {
 
   const data = req.body
@@ -92,6 +95,7 @@ app.post('/restaurants', (req, res) => {
     .catch(error => console.log(error))
 })
 
+//刪除一筆資料
 app.post('/restaurants/:id/delete', (req, res) => {
 
   const id = req.params.id
@@ -103,7 +107,7 @@ app.post('/restaurants/:id/delete', (req, res) => {
 
 })
 
-
+//監聽伺服器
 app.listen(port, () => {
   console.log(`The server is running on localhost:${port}`)
 })
