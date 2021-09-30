@@ -1,0 +1,14 @@
+const mongoose = require('mongoose')
+mongoose.connect('mongodb://localhost/restaurant-list')
+
+const db = mongoose.connection
+
+db.on('error', () => {
+  console.log('mongodb ERROR!')
+})
+
+db.once('open', () => {
+  console.log('mongodb connected!')
+})
+
+module.exports = mongoose

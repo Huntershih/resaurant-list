@@ -1,17 +1,7 @@
-const mongoose = require('mongoose')
 const restaurant = require('../restaurant')
-
-mongoose.connect('mongodb://localhost/restaurant-list')
-
-const db = mongoose.connection
-
-db.on('error', () => {
-  console.log('mongoDB error!')
-})
+const db = require('../../config/mongoose')
 
 db.once('open', () => {
-  console.log('mongoDB connected!')
-
   restaurant.create(
     {
       name: "Sababa 沙巴巴中東美食",
