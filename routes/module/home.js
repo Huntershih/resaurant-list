@@ -9,5 +9,23 @@ router.get('/', (req, res) => {
     .catch(error => console.log(error))
 })
 
+router.put('/filter', (req, res) => {
+  const { sort, rating } = req.body
+  const filterData = {
+    'name-asc': { name: 'asc' },
+    'name-desc': { name: 'desc' },
+    'rating-asc': { rating: 'asc' },
+    'rating-desc': { rating: 'desc' },
+    category: { category: 'asc' },
+    location: { location: 'asc' }
+  }
+
+  Restaurants.find()
+    .lean()
+    .sort(filterData[sort])
+    .then(restaurantList => res.render('index', { restaurantList, sort, rating }))
+    .catch(error => console.log(error))
+})
+
 
 module.exports = router

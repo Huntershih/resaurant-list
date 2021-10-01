@@ -39,7 +39,7 @@ router.get('/:id/edit', (req, res) => {
 })
 
 //更新編輯資料
-router.post('/:id', (req, res) => {
+router.put('/:id', (req, res) => {
   const id = req.params.id
   const data = req.body
 
@@ -65,7 +65,7 @@ router.post('/', (req, res) => {
 })
 
 //刪除一筆資料
-router.post('/:id/delete', (req, res) => {
+router.delete('/:id', (req, res) => {
 
   const id = req.params.id
 

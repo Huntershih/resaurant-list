@@ -1,6 +1,6 @@
 <div class="container my-5 restaurant-new-form">
   <h2>修改餐廳資料</h2>
-  <form action="/restaurants/{{restaurantList._id}}" method="POST">
+  <form action="/restaurants/{{restaurantList._id}}?_method=PUT" method="POST">
     <div class="form-group">
       <label for="name">Name</label>
       <input type="Name" name="name" class="form-control" id="name" value="{{restaurantList.name}}">

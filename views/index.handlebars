@@ -18,8 +18,26 @@
 </div>
 
 
-<div class="container mt-5">
+<div class="container mt-3">
   {{#if restaurantList}}
+  {{!-- filter --}}
+  <form action="/filter?_method=PUT" class="col-md-10 col-12 mx-auto d-flex justify-content-end form-inline mb-2"
+    method="POST" id="filter">
+    <div class="row">
+      <label class="my-1 mr-2" for="sort">篩選條件</label>
+      <select class="custom-select my-1 mr-sm-2" name="sort" id="sort" onchange="filter.submit()">
+        <option selected>選擇一個...</option>
+        <option value="name-asc" {{{equal sort 'name-asc' }}}> 名稱 A -> Z </option>
+        <option value="name-desc" {{{equal sort "name-desc" }}}> 名稱 Z -> A </option>
+        <option value="rating-asc" {{{equal sort "rating-asc" }}}> 評分 A -> Z </option>
+        <option value="rating-desc" {{{equal sort "rating-desc" }}}> 評分 Z -> A </option>
+        <option value="category" {{{equal sort "category" }}}> 類別 </option>
+        <option value="location" {{{equal sort "location" }}}> 地區 </option>
+      </select>
+    </div>
+    {{!-- <button type="submit" class="btn btn-danger ml-3">確定</button> --}}
+  </form>
+  {{!-- restaurant list --}}
   <div class="d-flex row">
     <div class="col-md-10 col-12 mx-auto">
       <div class="card-columns">
@@ -39,7 +57,7 @@
                 <div class="d-flex justify-content-end">
                   <a href="/restaurants/{{ this._id }}/edit" class="mx-2"><i class="fas fa-edit"></i></a>
                   <a href="/restaurants/{{ this._id }}" class="mx-2"><i class="fas fa-info"></i></a>
-                  <form action="/restaurants/{{ this._id }}/delete" method="POST" style="display: inline">
+                  <form action="/restaurants/{{ this._id }}?_method=DELETE" method="POST" style="display: inline">
                     <button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
                   </form>
                 </div>
