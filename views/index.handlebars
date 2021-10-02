@@ -26,7 +26,7 @@
     <div class="row">
       <label class="my-1 mr-2" for="sort">篩選條件</label>
       <select class="custom-select my-1 mr-sm-2" name="sort" id="sort" onchange="filter.submit()">
-        <option selected>選擇一個...</option>
+        <option value="default" {{{equal sort 'default' }}}>Default</option>
         <option value="name-asc" {{{equal sort 'name-asc' }}}> 名稱 A -> Z </option>
         <option value="name-desc" {{{equal sort "name-desc" }}}> 名稱 Z -> A </option>
         <option value="rating-asc" {{{equal sort "rating-asc" }}}> 評分 A -> Z </option>
@@ -35,7 +35,6 @@
         <option value="location" {{{equal sort "location" }}}> 地區 </option>
       </select>
     </div>
-    {{!-- <button type="submit" class="btn btn-danger ml-3">確定</button> --}}
   </form>
   {{!-- restaurant list --}}
   <div class="d-flex row">

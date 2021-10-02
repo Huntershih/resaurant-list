@@ -10,8 +10,9 @@ router.get('/', (req, res) => {
 })
 
 router.put('/filter', (req, res) => {
-  const { sort, rating } = req.body
+  const { sort, rating, category, location } = req.body
   const filterData = {
+    default: { _id: 'asc' },
     'name-asc': { name: 'asc' },
     'name-desc': { name: 'desc' },
     'rating-asc': { rating: 'asc' },
@@ -23,7 +24,7 @@ router.put('/filter', (req, res) => {
   Restaurants.find()
     .lean()
     .sort(filterData[sort])
-    .then(restaurantList => res.render('index', { restaurantList, sort, rating }))
+    .then(restaurantList => res.render('index', { restaurantList, sort, rating, category, location }))
     .catch(error => console.log(error))
 })
 
