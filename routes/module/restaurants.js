@@ -43,6 +43,10 @@ router.put('/:id', (req, res) => {
   const id = req.params.id
   const data = req.body
 
+  for (const value of Object.values(data)) {
+    if (value.length === 0) return
+  }
+
   return Restaurants.findById(id)
     .then((restaurantList) => {
       for (const [key, value] of Object.entries(data)) {
@@ -58,6 +62,10 @@ router.put('/:id', (req, res) => {
 router.post('/', (req, res) => {
 
   const data = req.body
+
+  for (const value of Object.values(data)) {
+    if (value.length === 0) return
+  }
 
   Restaurants.create(data)
     .then(() => res.redirect('/'))

@@ -11,4 +11,4 @@ db.once('open', () => {
   console.log('mongodb connected!')
 })
 
-module.exports = mongoose
+module.exports = db
